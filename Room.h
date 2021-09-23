@@ -1,9 +1,9 @@
+#ifndef ROOM_H
+#define ROOM_H
+
 #include <vector>
 #include "Item.h"
 #include "GameCharacter.h"
-
-#ifndef ROOM_H
-#define ROOM_H
 
 using namespace std;
 

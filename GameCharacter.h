@@ -1,7 +1,7 @@
-#include <string>
-
 #ifndef GAMECHARACTER_H
 #define GAMECHARACTER_H
+
+#include <string>
 
 using namespace std;
 
