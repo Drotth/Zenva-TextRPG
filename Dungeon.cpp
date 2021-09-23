@@ -18,6 +18,22 @@ int Dungeon::runDungeon()
     while (true)
     {
         enterRoom(player.currentRoom);
+        if (player.checkIsDead())
+        {
+            cout << "GAME OVER\n Try again?\n";
+            return performEndGameLogic();
+        }
+        else
+        {
+            if (player.currentRoom->isExit)
+            {
+                if (player.currentRoom->enemies.size() == 0)
+                {
+                    cout << "YOU WIN!\n Play again?\n";
+                    return performEndGameLogic();
+                }
+            }
+        }
         handleMovementActions(player.currentRoom);
     }
 }
@@ -124,7 +140,7 @@ void Dungeon::handleLootActions(Room *room)
     for (int i = 0; i < size; i++)
     {
         cout << "You open the chest and find a " << item.name << ".\n";
-        cout << "Your health is now" << player.currentHealth
+        cout << "Your health is now " << player.currentHealth
              << ", your attack is now " << player.attack
              << ", and your defence is now " << player.defence << ".\n";
     }
@@ -154,7 +170,7 @@ void Dungeon::handleFightActions(GameCharacter *enemy)
             player.changeRooms(player.previousRoom);
             enterRoom(player.currentRoom);
             return;
-        }
+        } else
         {
             cout << "Incorrect choice.\n";
         }
@@ -162,9 +178,9 @@ void Dungeon::handleFightActions(GameCharacter *enemy)
         //Check if enemy is dead
         if (enemy->checkIsDead())
         {
-            cout << "you win! You have defeated the " << enemy->name << ".\n";
+            cout << "You win! You have defeated the " << enemy->name << ".\n";
             player.increaseStats(10, 5, 5);
-            cout << "Your health is now" << player.currentHealth
+            cout << "Your health is now " << player.currentHealth
                  << ", your attack is now " << player.attack
                  << ", and your defence is now " << player.defence << ".\n";
             player.currentRoom->clearEnemies();
@@ -173,7 +189,7 @@ void Dungeon::handleFightActions(GameCharacter *enemy)
 
         //Handle enemy actions
         int damage = player.takeDamage(enemy->attack);
-        cout << enemy->name << "'s attack does' " << damage << " damage.\n";
+        cout << enemy->name << "'s attack does " << damage << " damage.\n";
         cout << "You now have " << player.currentHealth << " health.\n";
         if (player.checkIsDead())
         {
@@ -284,4 +300,26 @@ void Dungeon::printActions(int numActions, string actions[])
 
 int Dungeon::performEndGameLogic()
 {
+    string actions[] = {
+        "a. Yes",
+        "b. No"};
+
+    while (true)
+    {
+        printActions(2, actions);
+        string input;
+        cin >> input;
+        if (input == "a")
+        {
+            return 1;
+        }
+        else if (input == "b")
+        {
+            return 0;
+        }
+        else
+        {
+            cout << "Incorrect choice.\n";
+        }
+    }
 }
