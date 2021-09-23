@@ -12,7 +12,8 @@ GameCharacter::GameCharacter(string n, int h, int a, int d)
 int GameCharacter::takeDamage(int amount)
 {
     int damage = amount - defence;
-    if (damage < 0) {
+    if (damage < 0)
+    {
         damage = 0;
     }
 

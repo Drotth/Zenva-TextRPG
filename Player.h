@@ -9,7 +9,7 @@ class Player: public GameCharacter
         Room* currentRoom;
         Room* previousRoom;
         vector<Item> inventory;
-        Player(string, int, int, int);
+        Player(string="", int=0, int=0, int=0);
         void addItem(Item);
         void increaseStats(int, int, int);
         void lootRoom(Room*);
